@@ -1,0 +1,6 @@
+{
+  "fml.menu.mods.info.description.make_ars_lectern_great_again": "一个修复存储讲台bug，扩展存储讲台GUI界面使其更便于使用的新生魔艺附属模组。",
+  "make_ars_lectern_great_again.configuration.disableSearchAutoFocus": "禁用搜索框自动聚焦",
+  "make_ars_lectern_great_again.configuration.disableSearchAutoFocus.tooltip": "是否禁用搜索框自动聚焦。",
+  "mod.make_ars_lectern_great_again": "新生魔艺：存储讲台拓展"
+}

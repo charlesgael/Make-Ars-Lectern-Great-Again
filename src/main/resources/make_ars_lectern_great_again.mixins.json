@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "icu.kudikan.make_ars_lectern_great_again.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "StorageTerminalMenuMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  },
+  "client": [
+    "AbstractStorageTerminalScreenMixin",
+    "CraftingTerminalScreenMixin"
+  ]
+}

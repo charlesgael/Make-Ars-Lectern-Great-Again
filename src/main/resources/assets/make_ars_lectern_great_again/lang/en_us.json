@@ -1,0 +1,6 @@
+{
+  "fml.menu.mods.info.description.make_ars_lectern_great_again": "An Ars Nouveau addon that fixes bugs in the Storage Lectern and expands its GUI to make it more convenient to use.",
+  "make_ars_lectern_great_again.configuration.disableSearchAutoFocus": "Disable Search Filed Auto Focus",
+  "make_ars_lectern_great_again.configuration.disableSearchAutoFocus.tooltip": "Whether to disable search filed auto focus.",
+  "mod.make_ars_lectern_great_again": "Make Ars Lectern Great Again"
+}

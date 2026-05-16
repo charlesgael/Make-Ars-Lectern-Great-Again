@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "${loader_version_range}"
+license = "${mod_license}"
+issueTrackerURL = "https://github.com/KuDikan/Make-Ars-Lectern-Great-Again/issues"
+
+[[mods]]
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_name}"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/make-ars-lectern-great-again"
+logoFile="logo.png"
+authors = "KuDikan"
+description = '''
+An Ars Nouveau addon that fixes bugs in the Storage Lectern and expands its GUI to make it more convenient to use.
+'''
+
+[[mixins]]
+config = "${mod_id}.mixins.json"
+
+[[dependencies.${ mod_id }]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${ mod_id }]]
+modId = "ars_nouveau"
+type = "required"
+versionRange = "[5.8.6,)"
+mandatory = true
+side = "BOTH"
