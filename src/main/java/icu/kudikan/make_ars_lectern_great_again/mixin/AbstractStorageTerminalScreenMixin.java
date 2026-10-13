@@ -83,30 +83,38 @@ public abstract class AbstractStorageTerminalScreenMixin<T extends StorageTermin
     )
     private int replaceLinesConstant(int original) {
         return switch (original) {
-            case 3 -> Constants.ROW_COUNT;
-            case 7 -> Constants.EXPEND_ROW_COUNT;
+            case 3 -> Constants.rows();
+            case 7 -> Constants.expandedRows();
             default -> original;
         };
+    }
+
+    // init() also runs on window resize: recompute the row count from the screen height and re-layout the slots.
+    @Inject(method = "init()V", at = @At("HEAD"))
+    public void injectInitHead(CallbackInfo ci) {
+        Constants.setRows(Constants.computeRows(this.height, this.imageHeight,
+                Config.INSTANCE.rowCount.getAsInt(), Config.INSTANCE.maxRows.getAsInt()));
+        this.menu.addStorageSlots(expanded);
     }
 
     @Inject(method = "init()V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;init()V",
                     shift = At.Shift.AFTER))
     public void injectAfterInit(CallbackInfo ci) {
-        topPos -= (Constants.ROW_COUNT - 3) * 9;  // Setup topPos to change button's y Pos
+        topPos -= Constants.extraRows() * 9;  // Setup topPos to change button's y Pos
     }
 
     @Inject(method = "init()V",
             at = @At("TAIL"))
     public void injectInitTail(CallbackInfo ci) {
-        topPos += (Constants.ROW_COUNT - 3) * 9;  // Reverse topPos
+        topPos += Constants.extraRows() * 9;  // Reverse topPos
     }
 
     @ModifyVariable(method = "render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V",
             at = @At(value = "STORE", ordinal = 0),
             name = "l")
     private int modifyScrollRenderTopPos(int value) {
-        return value - (Constants.ROW_COUNT - 3) * 18;
+        return value - Constants.extraRows() * 18;
     }
 
     @ModifyVariable(method = "render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V",
@@ -120,11 +128,11 @@ public abstract class AbstractStorageTerminalScreenMixin<T extends StorageTermin
     @Inject(method = "renderBg(Lnet/minecraft/client/gui/GuiGraphics;FII)V",
             at = @At(value = "TAIL"))
     public void injectRenderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY, CallbackInfo ci) {
-        var top = this.topPos - (Constants.ROW_COUNT - 3) * 18;
+        var top = this.topPos - Constants.extraRows() * 18;
         // Header
         graphics.blit(getGui(), this.leftPos, top, 0, 0, this.imageWidth, 38);
         // Extra Rows
-        for (int i = 0; i < (Constants.ROW_COUNT - 3); i++) {
+        for (int i = 0; i < Constants.extraRows(); i++) {
             graphics.blit(getGui(), this.leftPos, top + 38 + i * 18, 0, 38, this.imageWidth, 18);
         }
         // Search Bar
