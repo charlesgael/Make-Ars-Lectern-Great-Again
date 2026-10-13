@@ -19,17 +19,19 @@ public class StorageTerminalMenuMixin {
     @Shadow(remap = false)
     protected List<SlotStorage> storageSlotList;
 
-    // Replaces the vanilla layout: the row count may change at runtime (window resize),
+    // Replaces the vanilla layout: the row / column count may change at runtime (window resize),
     // so slots are created on demand and repositioned on every call.
     @Inject(method = "addStorageSlots(Z)V", at = @At("HEAD"), cancellable = true, remap = false)
     public void addStorageSlots(boolean expanded, CallbackInfo ci) {
         int rows = Constants.rows();
+        int columns = Constants.columns();
         int lines = Constants.expandedRows();
+        int left = 13 - Constants.leftShift(); // Slot x Pos
         int top = 21 - Constants.extraRows() * Constants.ROW_HEIGHT; // Slot y Pos
         for (int i = 0; i < lines; i++) {
-            for (int j = 0; j < 9; j++) {
-                int index = i * 9 + j;
-                int x = 13 + j * 18;
+            for (int j = 0; j < columns; j++) {
+                int index = i * columns + j;
+                int x = left + j * Constants.SLOT_SIZE;
                 int y = top + i * Constants.ROW_HEIGHT;
                 boolean show = expanded || i < rows;
                 if (index < storageSlotList.size()) {
@@ -42,8 +44,8 @@ public class StorageTerminalMenuMixin {
                 }
             }
         }
-        // Slots left over from a previous, taller layout
-        for (int index = lines * 9; index < storageSlotList.size(); index++) {
+        // Slots left over from a previous, bigger layout
+        for (int index = lines * columns; index < storageSlotList.size(); index++) {
             SlotStorage slot = storageSlotList.get(index);
             slot.show = false;
             slot.setStack(null);

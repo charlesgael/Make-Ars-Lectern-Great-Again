@@ -6,5 +6,11 @@
   "make_ars_lectern_great_again.configuration.rowCount": "Storage Row Count",
   "make_ars_lectern_great_again.configuration.rowCount.tooltip": "Number of storage rows. 0 = adapt to the window height.",
   "make_ars_lectern_great_again.configuration.maxRows": "Max Storage Rows",
-  "make_ars_lectern_great_again.configuration.maxRows.tooltip": "Upper limit for the adaptive row count. 0 = unlimited."
+  "make_ars_lectern_great_again.configuration.maxRows.tooltip": "Upper limit for the adaptive row count. 0 = unlimited.",
+  "make_ars_lectern_great_again.configuration.columnCount": "Storage Column Count",
+  "make_ars_lectern_great_again.configuration.columnCount.tooltip": "Number of storage columns. 0 = adapt to the window width.",
+  "make_ars_lectern_great_again.configuration.maxColumns": "Max Storage Columns",
+  "make_ars_lectern_great_again.configuration.maxColumns.tooltip": "Upper limit for the adaptive column count. 0 = unlimited.",
+  "make_ars_lectern_great_again.configuration.sideMargin": "Side Margin",
+  "make_ars_lectern_great_again.configuration.sideMargin.tooltip": "Space (in GUI pixels) kept free on each side of the lectern for JEI when adapting the column count."
 }

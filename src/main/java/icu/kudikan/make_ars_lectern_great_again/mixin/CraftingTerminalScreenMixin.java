@@ -3,6 +3,7 @@ package icu.kudikan.make_ars_lectern_great_again.mixin;
 import com.hollingsworth.arsnouveau.client.container.AbstractStorageTerminalScreen;
 import com.hollingsworth.arsnouveau.client.container.CraftingTerminalMenu;
 import com.hollingsworth.arsnouveau.client.container.CraftingTerminalScreen;
+import icu.kudikan.make_ars_lectern_great_again.utils.ClientLayout;
 import icu.kudikan.make_ars_lectern_great_again.utils.Constants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -61,7 +62,15 @@ public abstract class CraftingTerminalScreenMixin extends AbstractStorageTermina
             cancellable = true)
     private void hasClickedOutside(double mouseX, double mouseY, int guiLeftIn, int guiTopIn, int mouseButton, CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValue()) {
-            cir.setReturnValue(mouseX < guiLeftIn || mouseY < guiTopIn - Constants.extraRows() * 18 || mouseX >= guiLeftIn + this.imageWidth || mouseY >= guiTopIn + this.imageHeight);
+            cir.setReturnValue(mouseX < guiLeftIn - Constants.leftShift() || mouseY < guiTopIn - Constants.extraRows() * 18 || mouseX >= guiLeftIn + this.imageWidth + Constants.rightShift() || mouseY >= guiTopIn + this.imageHeight);
+        }
+    }
+
+    // Opening / closing the recipe book changes the available width: rebuild the layout when needed.
+    @Inject(method = "containerTick()V", at = @At("TAIL"))
+    private void containerTick(CallbackInfo ci) {
+        if (ClientLayout.desiredColumns(this, this.imageWidth) != Constants.columns()) {
+            this.rebuildWidgets();
         }
     }
 }
